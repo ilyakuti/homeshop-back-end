@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - ShopHome</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static "css/login.css" %}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="{% url 'homepage_url' %}" class="logo">Shop<span>Home</span></a>
+                <nav>
+                    <ul>
+                        <li><a href="{% url 'homepage_url' %}">Home</a></li>
+                        <li><a href="{% url 'homepage_url' %}">Products</a></li>
+                        {% if user.is_authenticated %}
+                            <li><a href="{% url 'logout_url' %}">Logout</a></li>
+                        {% else %}
+                            <li><a href="{% url 'login_url' %}">Login</a></li>
+                            <li><a href="{% url 'sign_up_url' %}">Sign Up</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Search products...">
+                    <button class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <div class="icons">
+                    {% if user.is_authenticated %}
+                        <a href="#" title="{{ user.username }}"><i class="fas fa-user"></i> <span>{{ user.username }}</span></a>
+                    {% else %}
+                        <a href="{% url 'login_url' %}"><i class="fas fa-user"></i></a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="auth-container">
+        <div class="auth-box">
+            <div class="auth-header">
+                <h1>Welcome Back</h1>
+                <p>Don't have an account? <a href="#">Sign up here</a></p>
+            </div>
+            
+            <form id="loginForm" method='POST' action="{% url 'login_url' %}">
+                {% csrf_token %}
+                {% if messages %}
+                    <div class="messages">
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" class="form-control" placeholder="Enter your username" required name="username">
+                    <div class="error-message" id="usernameError">Please enter your username</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="password-container">
+                        <input type="password" id="password" class="form-control" placeholder="Enter your password" required name="password">
+                        <button type="button" class="toggle-password" id="togglePassword">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <div class="error-message" id="passwordError">Please enter your password</div>
+                </div>
+                
+                <div class="remember-forgot">
+                    <div class="remember-me">
+                        <input type="checkbox" id="rememberMe">
+                        <label for="rememberMe">Remember me</label>
+                    </div>
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                </div>
+                
+                <button type="submit" class="btn">Login</button>
+            </form>
+            
+            <div class="form-footer">
+                <p>By logging in, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ShopHome</h3>
+                    <p>Your one-stop shop for all your needs. We provide quality products with excellent customer service.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <p><a href="{% url 'homepage_url' %}">Home</a></p>
+                    <p><a href="{% url 'homepage_url' %}">Products</a></p>
+                    <p><a href="{% url 'login_url' %}">Login</a></p>
+                    <p><a href="#">Sign Up</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Street, City, Country</p>
+                    <p><i class="fas fa-phone"></i> +1 234 567 8900</p>
+                    <p><i class="fas fa-envelope"></i> info@shophome.com</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 ShopHome. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

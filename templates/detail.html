@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wireless Headphones - ShopHome</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static "css/detail.css" %}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="{% url 'homepage_url' %}" class="logo">Shop<span>Home</span></a>
+                <nav>
+                    <ul>
+                        <li><a href="{% url 'homepage_url' %}">Home</a></li>
+                        <li><a href="{% url 'homepage_url' %}">Products</a></li>
+                        {% if user.is_authenticated %}
+                            <li><a href="{% url 'logout_url' %}">Logout</a></li>
+                        {% else %}
+                            <li><a href="{% url 'login_url' %}">Login</a></li>
+                            <li><a href="{% url 'sign_up_url' %}">Sign Up</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+                <div class="search-container">
+                    <form method="get">
+                        <input type="text" class="search-input" placeholder="Search products..." name="q">
+                        <button class="search-btn" type="submit">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </form>
+                </div>
+                <div class="icons">
+                    {% if user.is_authenticated %}
+                        <a href="#" title="{{ user.username }}"><i class="fas fa-user"></i> <span>{{ user.username }}</span></a>
+                    {% else %}
+                        <a href="{% url 'login_url' %}"><i class="fas fa-user"></i></a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="breadcrumb">
+        <div class="container">
+            <a href="{% url "homepage_url" %}">Home</a> &gt;
+            <a href="#">Products</a> &gt; 
+            <span>{{ product.full_name_product }}</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="product-detail">
+            <div class="product-images">
+                <img id="mainImage" src="{{ product.image_product.url }}" alt="Wireless Headphones" class="main-image">
+                <div class="thumbnail-container">
+                    <img src="{{ product.image_product.url }}" data-image="{{ product.image_product.url }}" alt="Headphones Front" class="thumbnail active">
+                    <img src="{{ product.image_in_detail_2.url }}" data-image="{{ product.image_in_detail_2.url }}" alt="Headphones Side" class="thumbnail">
+                    <img src="{{ product.image_in_detail_3.url }}" data-image="{{ product.image_in_detail_3.url }}" alt="Headphones in Case" class="thumbnail">
+                </div>
+            </div>
+            
+            <div class="product-info">
+                <h1 class="product-title"> {{ product.full_name_product }} </h1>
+                <p class="product-price">$ {{product.price_product}} </p>
+                <p class="product-description">
+                    {{ product.product_description }}
+                </p>
+                
+                <div class="product-meta">
+                    <div class="meta-item">
+                        <div class="meta-label">Brand:</div>
+                        <div class="meta-value"> {{ product.brand_product }} </div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Color:</div>
+                        <div class="meta-value"> {{ product.color_product }} </div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Connectivity:</div>
+                        <div class="meta-value"> {{ product.connectivity_product }} </div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Battery:</div>
+                        <div class="meta-value"> {{ product.battery_product }} </div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">In Stock:</div>
+                        {% if product.in_stock == True %}
+                        <div class="meta-value-in-stock">Yes</div>
+                        {% elif product.in_stock == False %}
+                        <div class="meta-value-in-stock-no">No</div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="actions">
+                    <button class="btn btn-primary">Add to Cart</button>
+                    <button class="btn btn-secondary">Add to Wishlist</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="related-products">
+            <div class="section-title">
+                <h2>Related Products</h2>
+            </div>
+            <div class="product-grid">
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Camera" class="product-img">
+                    <div class="card-info">
+                        <h3 class="card-title">Digital Camera</h3>
+                        <p class="card-price">$299.99</p>
+                        <a href="product.html" class="view-product">View Product</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Smart Watch" class="product-img">
+                    <div class="card-info">
+                        <h3 class="card-title">Smart Watch</h3>
+                        <p class="card-price">$199.99</p>
+                        <a href="product.html" class="view-product">View Product</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Shoes" class="product-img">
+                    <div class="card-info">
+                        <h3 class="card-title">Running Shoes</h3>
+                        <p class="card-price">$79.99</p>
+                        <a href="product.html" class="view-product">View Product</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1560769629-975ec94e6a86?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Gaming Keyboard" class="product-img">
+                    <div class="card-info">
+                        <h3 class="card-title">Gaming Keyboard</h3>
+                        <p class="card-price">$129.99</p>
+                        <a href="product.html" class="view-product">View Product</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ShopHome</h3>
+                    <p>Your one-stop shop for all your needs. We provide quality products with excellent customer service.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <p><a href="index.html">Home</a></p>
+                    <p><a href="product.html">Products</a></p>
+                    <p><a href="login.html">Login</a></p>
+                    <p><a href="signup.html">Sign Up</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Street, City, Country</p>
+                    <p><i class="fas fa-phone"></i> +1 234 567 8900</p>
+                    <p><i class="fas fa-envelope"></i> info@shophome.com</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 ShopHome. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const searchBtn = document.querySelector('.search-btn');
+        const searchInput = document.querySelector('.search-input');
+        
+        searchBtn.addEventListener('click', function() {
+            const searchTerm = searchInput.value.trim();
+            if (searchTerm) {
+                alert(`Searching for: ${searchTerm}\n\nThis is a static demo. In a real Django application, this would search the database for products matching your query.`);
+                searchInput.value = '';
+            } else {
+                alert('Please enter a search term.');
+                searchInput.focus();
+            }
+        });
+        
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchBtn.click();
+            }
+        });
+
+        const thumbnails = document.querySelectorAll('.thumbnail');
+        const mainImage = document.getElementById('mainImage');
+        
+        thumbnails.forEach(thumbnail => {
+            thumbnail.addEventListener('click', function() {
+                const newImageSrc = this.getAttribute('data-image');
+                mainImage.src = newImageSrc;
+                
+                thumbnails.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        const addToCartBtn = document.querySelector('.btn-primary');
+        const addToWishlistBtn = document.querySelector('.btn-secondary');
+        
+        addToCartBtn.addEventListener('click', function() {
+            alert('Added to cart! In a real Django application, this would add the product to your shopping cart.');
+        });
+        
+        addToWishlistBtn.addEventListener('click', function() {
+            alert('Added to wishlist! In a real Django application, this would save the product to your wishlist.');
+        });
+    </script>
+</body>
+</html>
