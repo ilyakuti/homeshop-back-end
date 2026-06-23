@@ -15,10 +15,10 @@
                 <a href="index.html" class="logo">Shop<span>Home</span></a>
                 <nav>
                     <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="product.html">Products</a></li>
-                        <li><a href="login.html">Login</a></li>
-                        <li><a href="signup.html">Sign Up</a></li>
+                        <li><a href="{% url "homepage_url" %}">Home</a></li>
+                        <li><a href="{% url "homepage_url" %}">Products</a></li>
+                        <li><a href="{% url "login_url" %}">Login</a></li>
+                        <li><a href="{% url "sign_up_url" %}">Sign Up</a></li>
                     </ul>
                 </nav>
                 <div class="search-container">
